@@ -835,10 +835,9 @@ const ProductsCopy = () => {
         </div>
       </div>
       <div className=" right  ">
-        {formData?.styleNumber?.toString().length >= 5 && (
-          // <Image styleNumber={!orderId ? formData?.styleNumber : ordersRecord?.style_number} />
-          <Image styleNumber={formData?.styleNumber} />
-        )}
+        {formData?.styleNumber?.toString().length >= 5 || orderId ? (
+          <Image styleNumber={!orderId ? formData?.styleNumber : ordersRecord?.style_number} />
+        ) : null}
       </div>
     </div>
   );
