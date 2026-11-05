@@ -18,7 +18,8 @@ const ProductsCopy = () => {
   const [sessionStart, setSessionStart] = useState(false);
   const [localStorageData, setLocalStorageData] = useState({});
   const [selectedRack, setSelectedRack] = useState('');
-  const { getResponseFromOrders, coordsData, googleSheetColors } = useGlobalContext();
+  const { getResponseFromOrders, getResponseFromOrders2, coordsData, googleSheetColors } =
+    useGlobalContext();
   const [ordersRecord, setOrdersRecord] = useState([]);
   const [mappedOrderId, setMappedOrderId] = useState([]);
   const [isInvalid, setIsInvalid] = useState(false);
@@ -370,12 +371,14 @@ const ProductsCopy = () => {
         const requestId = ++latestRequestRef.current; // unique request id
 
         try {
-          const response = await getResponseFromOrders(Number(orderId));
+          const response2 = await getResponseFromOrders2(Number(orderId));
+          console.log('Response from Orders API 2:', response2);
+          // const response = await getResponseFromOrders(Number(orderId));
 
           //  ignore old API responses
           if (requestId !== latestRequestRef.current) return;
 
-          setOrdersRecord(response);
+          setOrdersRecord(response2);
 
           styleNumberRef.current?.focus();
           styleNumberRef.current?.select();
@@ -465,7 +468,11 @@ const ProductsCopy = () => {
               <form onSubmit={scanAndAddProduct}>
                 <div className="flex flex-wrap items-center gap-3">
                   <input
-                    onChange={(e) => setOrderId(e.target.value)}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      const orderId = value.replace(/.*\/(?:-e-)?/, '');
+                      setOrderId(orderId);
+                    }}
                     value={orderId}
                     ref={qrIdRef}
                     type="number"

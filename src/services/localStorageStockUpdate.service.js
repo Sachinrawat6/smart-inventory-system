@@ -26,7 +26,6 @@ export const getLowestStockRack = () => {
     .map(([rack, stock]) => [rack, Number(stock)]);
 
   if (!entries.length) return null;
-
   entries.sort((a, b) => a[1] - b[1]);
 
   return {

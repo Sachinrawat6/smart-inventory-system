@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { useState } from 'react';
 
 const ScanAndViewProductImg = () => {
   const [product, setProduct] = useState([]);
-  const [styleNumber, setStyleNumber] = useState("");
+  const [styleNumber, setStyleNumber] = useState('');
   const [loading, setLoading] = useState(false);
 
   const handleFetchProduct = async (e) => {
@@ -13,17 +13,16 @@ const ScanAndViewProductImg = () => {
         `https://inventorybackend-m1z8.onrender.com/api/product?style_code=${styleNumber}`
       );
       const data = await response.json();
-      setProduct(data[0])
+      setProduct(data[0]);
     } catch (error) {
-      console.log("Failed to fetch prodcut details.");
+      console.log('Failed to fetch prodcut details.');
     } finally {
       setLoading(false);
     }
-
   };
-  const viewProduct = ()=>{
-        window.open(`https://www.myntra.com/coats/qurvii/title/${product?.style_id}/buy`)
-    }
+  const viewProduct = () => {
+    window.open(`https://www.myntra.com/coats/qurvii/title/${product?.style_id}/buy`);
+  };
 
   return (
     <div className="container max-w-xl mx-auto mt-10">
@@ -47,12 +46,17 @@ const ScanAndViewProductImg = () => {
           >
             Search
           </button>
-          <div className={`${product?.style_id?"block":"hidden"} bg-blue-100 mt-5 p-4 rounded-2xl shadow text-blue-900`}>
+          <div
+            className={`${product?.style_id ? 'block' : 'hidden'} bg-blue-100 mt-5 p-4 rounded-2xl shadow text-blue-900`}
+          >
             <p>Style Number : {product.style_code}</p>
             <p>Style Id :{product.style_id} </p>
             <button
-            onClick={viewProduct}
-            className="bg-blue-300 p-2 mt-2 rounded  cursor-pointer hover:bg-blue-400 duration-75">View Product</button>
+              onClick={viewProduct}
+              className="bg-blue-300 p-2 mt-2 rounded  cursor-pointer hover:bg-blue-400 duration-75"
+            >
+              View Product
+            </button>
           </div>
         </>
       )}
