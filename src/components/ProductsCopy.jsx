@@ -475,7 +475,7 @@ const ProductsCopy = () => {
                     }}
                     value={orderId}
                     ref={qrIdRef}
-                    type="number"
+                    type="text"
                     disabled={!sessionStart}
                     placeholder="Scan order ID..."
                     className={`border border-gray-300 rounded-md py-2 px-4
